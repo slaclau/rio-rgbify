@@ -414,7 +414,7 @@ class RGBTiler:
             tiles = _make_tiles(constrained_bbox, "EPSG:4326", self.min_z, self.max_z)
 
         tilesCount = 0
-        for tile, contents in tqdm.tqdm(self.pool.imap_unordered(self.run_function, tiles), len(tiles):
+        for tile, contents in tqdm.tqdm(self.pool.imap_unordered(self.run_function, tiles), total=len(tiles):
             x, y, z = tile
 
             # mbtiles use inverse y indexing
