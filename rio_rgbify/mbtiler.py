@@ -414,7 +414,7 @@ class RGBTiler:
             tiles = _make_tiles(constrained_bbox, "EPSG:4326", self.min_z, self.max_z)
 
         tilesCount = 0
-        totalTiles = len(list(mercantile.tiles(*bbox, range(self.min_z, self.max_z + 1))))
+        totalTiles = len(list(tiles))
         print(f"making {totalTiles} tiles")
         for tile, contents in tqdm.tqdm(self.pool.imap_unordered(self.run_function, tiles), total=totalTiles):
             x, y, z = tile
