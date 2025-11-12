@@ -409,12 +409,13 @@ class RGBTiler:
         # generator of tiles to make
         if self.bounding_tile is None:
             tiles = _make_tiles(bbox, src_crs, self.min_z, self.max_z)
+            totalTiles = len(list(_make_tiles(bbox, src_crs, self.min_z, self.max_z)))
         else:
             constrained_bbox = list(mercantile.bounds(self.bounding_tile))
             tiles = _make_tiles(constrained_bbox, "EPSG:4326", self.min_z, self.max_z)
+            totalTiles = len(list(_make_tiles(constrained_bbox, "EPSG:4326", self.min_z, self.max_z)))
 
         tilesCount = 0
-        totalTiles = len(list(tiles))
         print(f"making {totalTiles} tiles")
         for tile, contents in tqdm.tqdm(self.pool.imap_unordered(self.run_function, tiles), total=totalTiles):
             x, y, z = tile
